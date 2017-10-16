@@ -1,0 +1,3 @@
+payment_mode https://github.com/etobella/bank-payment 11.0-mig-account_payment_mode
+payment_partner https://github.com/etobella/bank-payment 11.0-mig-account_payment_partner
+payment_order https://github.com/etobella/bank-payment 11.0-mig-account_payment_order
