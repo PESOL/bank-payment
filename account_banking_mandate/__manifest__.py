@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2014 Compassion CH - Cyril Sester <csester@compassion.ch>
 # Copyright 2014 Tecnativa - Pedro M. Baeza
 # Copyright 2015-16 Akretion - Alexis de Lattre <alexis.delattre@akretion.com>
 # Copyright 2017 Tecnativa - Carlos Dauden <carlos.dauden@tecnativa.com>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'Account Banking Mandate',

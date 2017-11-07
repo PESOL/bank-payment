@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# © 2017 Creu Blanca
+# Copyright 2017 Creu Blanca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo.tests.common import TransactionCase
@@ -7,7 +6,7 @@ from odoo.tests.common import TransactionCase
 
 class TestInvoiceMandate(TransactionCase):
 
-    def test_post_invoice_and_refund(self):
+    def test_post_invoice_and_refund_01(self):
         self.invoice._onchange_partner_id()
         self.invoice.action_invoice_open()
         self.env['account.invoice.payment.line.multi'].with_context(
@@ -21,7 +20,7 @@ class TestInvoiceMandate(TransactionCase):
         payment_order.open2generated()
         payment_order.generated2uploaded()
 
-    def test_post_invoice_and_refund(self):
+    def test_post_invoice_and_refund_02(self):
         self.invoice._onchange_partner_id()
         self.invoice.action_invoice_open()
         self.assertEqual(self.invoice.mandate_id, self.mandate)
@@ -39,6 +38,7 @@ class TestInvoiceMandate(TransactionCase):
         mode = self.env.ref('account_payment_mode.payment_mode_inbound_ct1')
         self.partner.customer_payment_mode_id = mode
         mode.payment_method_id.mandate_required = True
+        mode.payment_order_ok = True
         invoice_account = self.env['account.account'].search(
             [('user_type_id', '=', self.env.ref(
                 'account.data_account_type_payable').id)],
