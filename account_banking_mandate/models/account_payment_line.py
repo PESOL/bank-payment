@@ -1,6 +1,6 @@
 # Copyright 2014 Compassion CH - Cyril Sester <csester@compassion.ch>
 # Copyright 2014 Tecnativa - Pedro M. Baeza
-# Copyright 2015-2016 Akretion - Alexis de Lattre <alexis.delattre@akretion.com>
+# Copyright 2015-16 Akretion - Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, fields, api, _
@@ -41,7 +41,7 @@ class AccountPaymentLine(models.Model):
                     "The payment line number %s a different company than "
                     "that of the linked mandate %s).") %
                     (pline.name,
-                     pline.mandate_id.name))
+                     pline.mandate_id.display_name))
 
     @api.multi
     def draft2open_payment_line_check(self):

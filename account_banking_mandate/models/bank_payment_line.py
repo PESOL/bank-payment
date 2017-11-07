@@ -1,6 +1,6 @@
 # Copyright 2014 Compassion CH - Cyril Sester <csester@compassion.ch>
 # Copyright 2014 Serv. Tecnol. Avanzados - Pedro M. Baeza
-# Copyright 2015-2016 Akretion - Alexis de Lattre <alexis.delattre@akretion.com>
+# Copyright 2015-16 Akretion - Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models, _
@@ -28,4 +28,4 @@ class BankPaymentLine(models.Model):
                 raise ValidationError(_(
                     "The bank payment line %s has a different company than "
                     "that of the linked mandate %s).") %
-                    (line.name, line.mandate_id.name))
+                    (line.name, line.mandate_id.display_name))

@@ -1,6 +1,6 @@
 # Copyright 2014 Compassion CH - Cyril Sester <csester@compassion.ch>
 # Copyright 2014 Tecnativa - Pedro M. Baeza
-# Copyright 2015-2016 Akretion - Alexis de Lattre <alexis.delattre@akretion.com>
+# Copyright 2015-16 Akretion - Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, fields, api, _
@@ -86,7 +86,7 @@ class AccountBankingMandate(models.Model):
                 raise ValidationError(
                     _("The company of the mandate %s differs from the "
                       "company of partner %s.") %
-                    (mandate.name, mandate.partner_id.name))
+                    (mandate.display_name, mandate.partner_id.name))
 
             if self.env['account.payment.line'].search(
                     [('mandate_id', '=', mandate.id),
@@ -95,7 +95,7 @@ class AccountBankingMandate(models.Model):
                     _("You cannot change the company of mandate %s, "
                       "as there exists payment lines referencing it that "
                       "belong to another company.") %
-                    (mandate.name, ))
+                    (mandate.display_name, ))
 
             if self.env['account.invoice'].search(
                     [('mandate_id', '=', mandate.id),
@@ -104,7 +104,7 @@ class AccountBankingMandate(models.Model):
                     _("You cannot change the company of mandate %s, "
                       "as there exists invoices referencing it that belong to "
                       "another company.") %
-                    (mandate.name, ))
+                    (mandate.display_name, ))
 
             if self.env['account.move.line'].search(
                     [('mandate_id', '=', mandate.id),
@@ -113,7 +113,7 @@ class AccountBankingMandate(models.Model):
                     _("You cannot change the company of mandate %s, "
                       "as there exists journal items referencing it that "
                       "belong to another company.") %
-                    (mandate.name, ))
+                    (mandate.display_name, ))
 
             if self.env['bank.payment.line'].search(
                     [('mandate_id', '=', mandate.id),
@@ -122,7 +122,7 @@ class AccountBankingMandate(models.Model):
                     _("You cannot change the company of mandate %s, "
                       "as there exists bank payment lines referencing it that "
                       "belong to another company.") %
-                    (mandate.name, ))
+                    (mandate.display_name, ))
 
     @api.multi
     @api.constrains('state', 'partner_bank_id')

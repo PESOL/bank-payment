@@ -1,3 +1,4 @@
+
 # Copyright 2017 Creu Blanca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -16,6 +17,7 @@ class TestInvoiceMandate(TransactionCase):
 
         payment_order = self.env['account.payment.order'].search([])
         self.assertEqual(len(payment_order.ids), 1)
+        payment_order.payment_mode_id_change()
         payment_order.draft2open()
         payment_order.open2generated()
         payment_order.generated2uploaded()
@@ -37,6 +39,9 @@ class TestInvoiceMandate(TransactionCase):
         self.mandate.validate()
         mode = self.env.ref('account_payment_mode.payment_mode_inbound_ct1')
         self.partner.customer_payment_mode_id = mode
+        bank_journal = self.env['account.journal'].search(
+            [('type', '=', 'bank')], limit=1)
+        mode.variable_journal_ids = bank_journal
         mode.payment_method_id.mandate_required = True
         mode.payment_order_ok = True
         invoice_account = self.env['account.account'].search(

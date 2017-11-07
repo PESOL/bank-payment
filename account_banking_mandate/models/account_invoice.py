@@ -88,4 +88,4 @@ class AccountInvoice(models.Model):
                 raise ValidationError(_(
                     "The invoice %s has a different company than "
                     "that of the linked mandate %s).") %
-                    (inv.name, inv.mandate_id.name))
+                    (inv.name, inv.mandate_id.display_name))

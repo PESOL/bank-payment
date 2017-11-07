@@ -84,8 +84,8 @@ class TestMandate(TransactionCase):
         mandate.validate()
         with self.assertRaises(ValidationError):
             mandate.signature_date = fields.Date.to_string(
-                fields.Date.from_string(fields.Date.context_today(
-                        mandate)) + timedelta(days=1))
+                fields.Date.from_string(
+                    fields.Date.context_today(mandate)) + timedelta(days=1))
 
     def test_constrains_02(self):
         bank_account = self.env.ref('account_payment_mode.res_partner_12_iban')

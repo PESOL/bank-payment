@@ -41,8 +41,9 @@ class AccountMoveLine(models.Model):
     @api.constrains('mandate_id', 'company_id')
     def _check_company_constrains(self):
         for ml in self:
-            if ml.mandate_id.company_id != ml.company_id:
+            mandate = ml.mandate_id
+            if mandate.company_id and mandate.company_id != ml.company_id:
                 raise ValidationError(_(
                     "The item %s of journal %s has a different company than "
                     "that of the linked mandate %s).") %
-                    (ml.name, ml.move_id.name, ml.mandate_id.name))
+                    (ml.name, ml.move_id.name, ml.mandate_id.display_name))
