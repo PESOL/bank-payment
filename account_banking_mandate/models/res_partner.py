@@ -29,6 +29,13 @@ class ResPartner(models.Model):
     @api.multi
     def _compute_valid_mandate_id(self):
         # Dict for reducing the duplicated searches on parent/child partners
+        company_id = self.env.context.get('force_company', False)
+        if company_id:
+            company = self.env['res.company'].browse(company_id)
+        else:
+            company = self.env['res.company']._company_default_get(
+                'account.banking.mandate')
+
         mandates_dic = {}
         for partner in self:
             commercial_partner_id = partner.commercial_partner_id.id
@@ -36,7 +43,8 @@ class ResPartner(models.Model):
                 partner.valid_mandate_id = mandates_dic[commercial_partner_id]
             else:
                 mandates = partner.commercial_partner_id.bank_ids.mapped(
-                    'mandate_ids').filtered(lambda x: x.state == 'valid')
+                    'mandate_ids').filtered(
+                    lambda x: x.state == 'valid' and x.company_id == company)
                 first_valid_mandate_id = mandates[:1].id
                 partner.valid_mandate_id = first_valid_mandate_id
                 mandates_dic[commercial_partner_id] = first_valid_mandate_id

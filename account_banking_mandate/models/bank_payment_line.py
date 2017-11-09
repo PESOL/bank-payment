@@ -24,7 +24,8 @@ class BankPaymentLine(models.Model):
     @api.constrains('mandate_id', 'company_id')
     def _check_company_constrains(self):
         for line in self:
-            if line.mandate_id.company_id != line.company_id:
+            if line.mandate_id.company_id and line.mandate_id.company_id != \
+                    line.company_id:
                 raise ValidationError(_(
                     "The bank payment line %s has a different company than "
                     "that of the linked mandate %s).") %

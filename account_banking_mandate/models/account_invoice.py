@@ -84,7 +84,8 @@ class AccountInvoice(models.Model):
     @api.constrains('mandate_id', 'company_id')
     def _check_company_constrains(self):
         for inv in self:
-            if inv.mandate_id.company_id != inv.company_id:
+            if inv.mandate_id.company_id and inv.mandate_id.company_id != \
+                    inv.company_id:
                 raise ValidationError(_(
                     "The invoice %s has a different company than "
                     "that of the linked mandate %s).") %

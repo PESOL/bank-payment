@@ -112,6 +112,18 @@ class TestMandate(TransactionCase):
         with self.assertRaises(ValidationError):
             mandate.partner_bank_id = bank_account_2
 
+    def test_constrains_04(self):
+        mandate = self.env['account.banking.mandate'].create({
+            'signature_date': '2015-01-01',
+            'company_id': self.company.id,
+        })
+        bank_account_2 = self.env.ref(
+            'account_payment_mode.res_partner_2_iban')
+        bank_account_2.company_id = self.company_2
+
+        with self.assertRaises(ValidationError):
+            bank_account_2.mandate_ids += mandate
+
     def setUp(self):
         res = super(TestMandate, self).setUp()
         # Company
